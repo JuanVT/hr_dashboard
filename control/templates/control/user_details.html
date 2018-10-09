@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ HRUser.name }}</title>
+</head>
+<body>
+
+<ul>
+
+    <li>Name: {{user.first_name}}</li>
+    <li>Last Name: {{ user.last_name }}</li>
+    <li>Location: {{ user.location }}</li>
+    <li>Birth Date: {{ user.birth_date }}</li>
+
+
+</ul>
+
+<hr>
+Please Update your details:
+<br>
+<br>
+
+<form action="{%  url 'get_user_details' user.id %}" method='POST'>
+
+
+    {% csrf_token %}
+
+
+    {{form}}
+
+
+    <input type="submit" value="Update">
+
+
+</form>
+</body>
+</html>

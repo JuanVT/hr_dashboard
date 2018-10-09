@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+
+<ul>
+
+{% for hruser in users %}
+
+
+    <li>
+
+        <a href='{% url 'get_user_details' user.id %}'>
+
+
+            {{ hruser.first_name }} {{ hruser.last_name }}
+
+        </a>
+
+    </li>
+
+{% endfor %}
+</ul>
+
+
+
+</body>
+</html>
