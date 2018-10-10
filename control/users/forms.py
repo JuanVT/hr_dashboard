@@ -1,6 +1,6 @@
 from django import forms
 
-from control.models import HRUser
+from control.users.models import HRUser
 
 
 class UpdateUserForm(forms.ModelForm):

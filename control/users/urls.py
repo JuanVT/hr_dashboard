@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from control.views import get_users, get_user_details
+from control.users.views import get_users, get_user_details
 
 urlpatterns =[
 

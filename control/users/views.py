@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.template import loader
 
-from control.forms import UpdateUserForm
-from control.models import HRUser
+from control.users.forms import UpdateUserForm
+from control.users.models import HRUser
 
 
 def get_users(request):
