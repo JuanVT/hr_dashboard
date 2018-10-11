@@ -1,4 +1,4 @@
-from __builtin__ import True
+import datetime
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -12,6 +12,30 @@ class HRUser(AbstractUser):
     remaining_holiday = models.DecimalField(default=25.0, decimal_places=1, max_digits=3)
     # profile_picture = models.ImageField(blank=True, default=None)
 
+    @property
+    def current_status(self):
+
+        today = datetime.datetime.now()
+        status = "At the office"
+        time_off_request = self.timeoffrequest_set.filter(start_date__lte=today, end_date__gte=today, holiday_status="Approved").first()
+
+        if time_off_request:
+
+            request_type = time_off_request.type
+
+            if request_type == "holiday":
+                status = "On Holiday!"
+
+            elif request_type == "off_sick":
+                status = "Off Sick!"
+
+            elif request_type == "working_from_home":
+                status = "Working From Home!"
+
+            status = "{} ({}), {}".format(status, time_off_request.all_day, time_off_request.holiday_status)
+
+        return status
+
 
 class TimeOffRequest(models.Model):
 
@@ -20,14 +44,16 @@ class TimeOffRequest(models.Model):
     start_date = models.DateField(blank=True)
     end_date = models.DateField(blank=True)
     description = models.TextField(max_length=600, blank=True)
+    holiday_status = models.CharField(max_length=30, default="pending_approval", choices=(("approved", "Approved"),
+                                                                                        ("pending_approval", "Pending Approval"),
+                                                                                        ("not_approved", "Not Approved")))
 
-    holiday, off_sick, working_from_home = 'holiday', 'off_sick', 'working_from_home'
-    type = models.CharField(max_length=10, choices=((holiday, "Holiday"),
-                                                    (off_sick, "Off Sick"),
-                                                    (working_from_home, "Working From Home")))
+    type = models.CharField(max_length=10, default="holiday", choices=(("holiday", "Holiday"),
+                                                                       ("off_sick", "Off Sick"),
+                                                                       ("working_from_home", "Working From Home")))
 
-    all_day, morning, afternoon = "all_day", "morning", "afternoon"
-    all_day = models.CharField(max_length=10, choices=((all_day, "All Day"),
-                                                       (morning, "Morning"),
-                                                       (afternoon, "Afternoon")))
+    all_day = models.CharField(max_length=10, default="all_day", choices=(("all_day", "All Day"),
+                                                                          ("morning", "Morning"),
+                                                                          ("afternoon", "Afternoon")))
+
 

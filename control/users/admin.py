@@ -7,6 +7,7 @@ from control.users.models import HRUser, TimeOffRequest
 class HRUserAdmin(admin.ModelAdmin):
     list_display = ['id', 'first_name']
 
+
 @admin.register(TimeOffRequest)
 class TimeOffRequestAdmin(admin.ModelAdmin):
-    list_display = ['id',]
+    list_display = ['id', 'user']
