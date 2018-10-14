@@ -6,24 +6,31 @@
 </head>
 <body>
 
-<ul>
-
-{% for hruser in users %}
 
 
-    <li>
-
-        <a href='{% url 'get_user_details' user.id %}'>
 
 
-            {{ hruser.first_name }} {{ hruser.last_name }}
+<table style="align-items: center" border="20pt">
 
-        </a>
+    {% for user in users %}
 
-    </li>
+        <tr>
 
-{% endfor %}
-</ul>
+        <td style="cursor:pointer" onclick="location.href='{% url 'get_user_details' user.id %}'">
+
+
+            <li>{{ user.first_name }} {{ user.last_name }}</li>
+
+        </td>
+
+    </tr>
+
+
+
+    {% endfor %}
+
+</table>
+
 
 
 

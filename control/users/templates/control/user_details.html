@@ -8,12 +8,15 @@
 
 <ul>
 
-    <li>Name: {{user.first_name}}</li>
+    <li>Name: {{ user.first_name }}</li>
     <li>Last Name: {{ user.last_name }}</li>
     <li>Location: {{ user.location }}</li>
     <li>Birth Date: {{ user.birth_date }}</li>
     <li>Holiday Left: {{ user.available_holiday }} days</li>
     <li>Current Status: {{ user.current_status }} {{ user.holiday_status }}</li>
+    <li>Job Tittle: {{ user.job_tittle }}</li>
+    <li>Reports to : {{ user.manager }}</li>
+    <li>Department: {{ user.department }}</li>
     <button type="submit" value="Book a Holiday">Book a Holiday! </button>
 
 
