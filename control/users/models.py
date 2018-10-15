@@ -10,7 +10,7 @@ class HRUser(AbstractUser):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     remaining_holiday = models.DecimalField(default=25.0, decimal_places=1, max_digits=3)
-    job_tittle = models.CharField(max_length= 30, blank=True)
+    job_title = models.CharField(max_length= 30, blank=True)
     start_date = models.DateField(null=True, blank=True)
     manager = models.ForeignKey('HRUser', null=True, blank=True)
     department = models.ForeignKey('Department', null=True, blank=True)
