@@ -1,6 +1,7 @@
 from django.conf.urls import url
 
-from control.users.views import get_users, get_user_details, users_import
+from control.users.views import get_users, get_user_details
+from control.users.views import users_import
 
 urlpatterns = [
     url(r'^users/$', get_users, name='get_users'),

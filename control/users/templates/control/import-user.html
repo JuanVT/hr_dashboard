@@ -5,20 +5,22 @@
     <title>Import User</title>
 </head>
 <body>
- <form action='{% url 'users_import' %}' method="post" enctype="multipart/form-data">
-     {% csrf_token %}
+
+<form action='{% url 'users_import' %}' method="post" enctype="multipart/form-data">
+    {% csrf_token %}
     <input type="file" name="myfile">
     <button type="submit">Upload</button>
- </form>
- <hr>
+</form>
+<hr>
 <ul>
-{% for key,values in errors.items %}
-     <li style="color: #ba2121">
-         In line {{ key }}:
-         {% for value in values  %} {{ value.error }}
-         {% endfor %}
-    </li>
-{% endfor %}
+    {% for key,values in errors.items %}
+        <li style="color: #ba2121">
+            In line {{ key }}:
+            {% for value in values %} {{ value.error }}
+            {% endfor %}
+        </li>
+    {% endfor %}
 </ul>
- </body>
+
+</body>
 </html>
