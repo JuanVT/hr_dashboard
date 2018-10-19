@@ -2,7 +2,6 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
 from tablib import Dataset
-
 from control.users.forms import UpdateUserForm
 from control.users.models import HRUser
 from control.users.resources import UserResource

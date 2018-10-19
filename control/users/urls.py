@@ -1,5 +1,4 @@
 from django.conf.urls import url
-
 from control.users.views import get_users, get_user_details, users_import
 
 urlpatterns =[
