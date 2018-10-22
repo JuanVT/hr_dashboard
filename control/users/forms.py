@@ -1,5 +1,4 @@
 from django import forms
-
 from control.users.models import HRUser
 
 
