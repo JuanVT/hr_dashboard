@@ -1,5 +1,4 @@
 import datetime
-
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -10,10 +9,35 @@ class HRUser(AbstractUser):
     location = models.CharField(max_length=30, blank=True)
     birth_date = models.DateField(null=True, blank=True)
     remaining_holiday = models.DecimalField(default=25.0, decimal_places=1, max_digits=3)
-    job_title = models.CharField(max_length= 30, blank=True)
+    job_title = models.CharField(max_length=30, blank=True)
     start_date = models.DateField(null=True, blank=True)
     manager = models.ForeignKey('HRUser', null=True, blank=True)
     department = models.ForeignKey('Department', null=True, blank=True)
+    nationality = models.CharField(max_length=30, blank=True)
+    country = models.CharField(max_length=30, blank=True)
+    city = models.CharField(max_length=30, blank=True)
+    post_code = models.CharField(max_length=30, blank=True)
+    employee_id = models.CharField(max_length=30, blank=True)
+    work_phone = models.DecimalField(max_length=11, blank=True)
+    gender = models.CharField(max_length=10, blank=True, null=True, choices=(("male", "Male"),
+                                                                             ("female", "Female")))
+    private_phone = models.DecimalField(decimal_places=0, max_digits=30, null=True, blank=True)
+    work_phone = models.DecimalField(decimal_places=0, max_digits=30, null=True, blank=True)
+    bank_name = models.CharField(max_length=30, blank=True)
+    account_number = models.DecimalField(decimal_places=0, max_digits=30, null=True, blank=True)
+    bank_account_type = models.CharField(max_length=30, blank=True)
+    swift_code = models.CharField(max_length=30, blank=True)
+    iban = models.CharField(max_length=30, blank=True)
+    nin = models.CharField(max_length=30, blank=True)
+    tax_code = models.CharField(max_length=30, blank=True)
+    emergency_first_name = models.CharField(max_length=30, blank=True)
+    emergency_last_name = models.CharField(max_length=30, blank=True)
+    emergency_contact_number = models.DecimalField(decimal_places=0, max_digits=30, null=True, blank=True)
+    status = models.CharField(max_length=10, blank=True, null=True, choices=(("active", "Active"),
+                                                                             ("inactive", "Inactive")))
+
+
+
 
     @property
     def current_status(self):
