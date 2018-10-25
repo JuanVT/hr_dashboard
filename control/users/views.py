@@ -68,7 +68,7 @@ def users_import(request):
     return render(request, 'control/import-user.html', context=context)
 
 
-def index(request):
+def index_view(request):
 
     users = HRUser.objects.all()
 
@@ -79,12 +79,6 @@ def index(request):
 
     template = loader.get_template('control/index.html')
     return HttpResponse(template.render(context=context, request=request))
-
-
-
-
-
-
 
 
 

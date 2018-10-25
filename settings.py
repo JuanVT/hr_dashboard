@@ -124,3 +124,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 AUTH_USER_MODEL = 'users.HRUser'
 IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "control", "static"),
+]
