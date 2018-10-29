@@ -77,7 +77,7 @@ def index_view(request):
         'users': users,
     }
 
-    template = loader.get_template('control/index.html')
+    template = loader.get_template('control/base.html')
     return HttpResponse(template.render(context=context, request=request))
 
 
