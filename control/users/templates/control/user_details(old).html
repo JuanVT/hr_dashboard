@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ HRUser.name }}</title>
+</head>
+<body>
+
+<ul>
+
+    <li>Name: {{ user.first_name }}</li>
+    <li>Last Name: {{ user.last_name }}</li>
+    <li>Location: {{ user.location }}</li>
+    <li>Birth Date: {{ user.birth_date }}</li>
+    <li>Holiday Left: {{ user.available_holiday }} days</li>
+    <li>Current Status: {{ user.current_status }} {{ user.holiday_status }}</li>
+    <li>Job Title: {{ user.job_title }}</li>
+    <li>Reports to : {{ user.manager }}</li>
+    <li>Department: {{ user.department }}</li>
+    <button type="submit" value="Book a Holiday">Book a Holiday! </button>
+
+
+
+
+</ul>
+
+<hr>
+Please Update your details:
+<br>
+<br>
+
+<form action="{%  url 'get_user_details' user.id %}" method='POST'>
+
+
+    {% csrf_token %}
+
+
+    {{form}}
+
+
+    <input type="submit" value="Update">
+
+
+</form>
+</body>
+</html>
