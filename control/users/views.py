@@ -68,19 +68,4 @@ def users_import(request):
     return render(request, 'control/import-user.html', context=context)
 
 
-def index_view(request):
-
-    users = HRUser.objects.all()
-
-    context = {
-
-        'users': users,
-    }
-
-    template = loader.get_template('control/index.html')
-    return HttpResponse(template.render(context=context, request=request))
-
-
-
-
 
