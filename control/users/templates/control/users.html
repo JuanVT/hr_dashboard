@@ -5,99 +5,99 @@
 <html>
 <head>
 
-{% block title %}
-<title>Users</title>
-{% endblock %}
+    {% block title %}
+        <title>Users</title>
+    {% endblock %}
 
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <!-- DataTables -->
-  <link rel="stylesheet" href={% static "bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" %}>
-
-  <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    {% block extra_css_statics %}
+        <!-- DataTables -->
+        <link rel="stylesheet" href={% static "bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css" %}>
+    {% endblock %}
 </head>
 
 {% block content %}
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        Users
-        <small>Table</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href={% url 'index_view' %}><i class="fa fa-dashboard"></i>Home</a></li>
-        <li><a href={% url 'get_users' %}>Users</a></li>
-      </ol>
-    </section>
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <h1>
+                Users
+                <small>Table</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li><a href={% url 'index_view' %}><i class="fa fa-dashboard"></i>Home</a></li>
+                <li><a href={% url 'get_users' %}>Users</a></li>
+            </ol>
+        </section>
 
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-xs-12">
+        <!-- Main content -->
+        <section class="content">
+            <div class="row">
+                <div class="col-xs-12">
 
-          <!-- /.box -->
+                    <!-- /.box -->
 
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+                    <div class="box">
+                        <div class="box-header">
+                            <h3 class="box-title">Data Table With Full Features</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body">
+                            <table id="users_table" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Location</th>
+                                    <th>Department</th>
+                                    <th>Reports To</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for user in users %}
+
+                                    <tr>
+                                    <td style="cursor:pointer"
+                                        onclick="location.href='{% url 'get_user_details' user.id %}'">{{ user.first_name }}</td>
+                                    <td>{{ user.last_name }}</td>
+                                    <td>{{ user.location }}</td>
+                                    <td> {{ user.department }}</td>
+                                    <td>{{ user.report_to }}</td>
+                                {% endfor %}
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+                <!-- /.col -->
             </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Location</th>
-                  <th>Department</th>
-                  <th>Reports To</th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for user in users %}
-
-                <tr>
-                  <td style="cursor:pointer" onclick="location.href='{% url 'get_user_details' user.id %}'">{{user.first_name}}</td>
-                  <td>{{ user.last_name }}</td>
-                  <td>{{ user.location }}</td>
-                  <td> {{ user.department }}</td>
-                  <td>{{ user.report_to }}</td>
-                {% endfor %}
-                </tr>
-                </tfoot>
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          <!-- /.box -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </section>
-    <!-- /.content -->
-  </div>
+            <!-- /.row -->
+        </section>
+        <!-- /.content -->
+    </div>
 {% endblock %}
 
-<!-- DataTables -->
-<script src={% static "bower_components/datatables.net/js/jquery.dataTables.min.js" %}></script>
-<script src={% static "bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js" %}></script>
-s
-<script>
-  $(function () {
-    $('#example1').DataTable()
-    $('#example2').DataTable({
-      'paging'      : true,
-      'lengthChange': false,
-      'searching'   : false,
-      'ordering'    : true,
-      'info'        : true,
-      'autoWidth'   : false
-    })
-  })
-</script>
+{% block extra_js_statics %}
+    <!-- DataTables -->
+    <script src={% static "bower_components/datatables.net/js/jquery.dataTables.min.js" %}></script>
+    <script src={% static "bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js" %}></script>
+    <script>
+        $(function () {
+            $('#users_table').DataTable({
+                'paging': true,
+                'lengthChange': true,
+                'searching': true,
+                'ordering': true,
+                'info': true,
+                'autoWidth': false
+            })
+        })
+    </script>
+{% endblock %}
+
 </body>
 </html>
