@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
@@ -24,6 +24,12 @@ def login_view(request):
 
     template = loader.get_template('control/login.html')
     return HttpResponse(template.render(request=request))
+
+
+def logout_view(request):
+
+    logout(request)
+    return HttpResponseRedirect(reverse('login_view'))
 
 
 @login_required(login_url='accounts/login')

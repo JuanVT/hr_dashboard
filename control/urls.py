@@ -19,12 +19,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.views import serve
 
-from control.views import index_view, login_view
+from control.views import index_view, login_view, logout_view
 
 urlpatterns = [
     url(r'^$', index_view, name='index_view'),
     url(r'^accounts/login/$', login_view, name='login_view'),
-
+    url(r'^logout/$', logout_view, name='logout_view'),
     url(r'^admin/', admin.site.urls),
 
     url(r'control/', include('control.users.urls')),
