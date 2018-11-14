@@ -17,7 +17,7 @@ def get_users(request):
         'users': users,
     }
 
-    template = loader.get_template('control/users.html')
+    template = loader.get_template('control/users/users.html')
     return HttpResponse(template.render(context=context, request=request))
 
 
@@ -39,7 +39,7 @@ def get_user_details(request, user_id):
         'form': form,
     }
 
-    template = loader.get_template('control/user_details.html')
+    template = loader.get_template('control/users/user_details.html')
     return HttpResponse(template.render(context=context, request=request))
 
 
@@ -65,7 +65,7 @@ def users_import(request):
             errors = dict(result.row_errors())
             context.update({'errors': errors})
 
-    return render(request, 'control/import-user.html', context=context)
+    return render(request, 'control/users/import-user.html', context=context)
 
 
 
