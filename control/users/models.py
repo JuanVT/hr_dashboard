@@ -37,15 +37,12 @@ class HRUser(AbstractUser):
                                                                              ("inactive", "Inactive")))
     profile_picture = models.ImageField(null=True, upload_to='images')
 
-
-
-
     @property
     def current_status(self):
 
         today = datetime.datetime.now()
         status = "At the office"
-        time_off_request = self.timeoffrequest_set.filter(start_date__lte=today, end_date__gte=today, holiday_status="approved").first()
+        time_off_request = self.timeoffrequest_set.filter(start_date__lte=today, end_date__gte=today, status="approved").first()
 
         if time_off_request:
 
@@ -60,7 +57,7 @@ class HRUser(AbstractUser):
             elif request_type == "working_from_home":
                 status = "Working From Home!"
 
-            status = "{} ({}), {}".format(status, time_off_request.all_day, time_off_request.holiday_status)
+            status = "{} ({}), {}".format(status, time_off_request.all_day, time_off_request.status)
 
         return status
 
@@ -72,9 +69,10 @@ class TimeOffRequest(models.Model):
     start_date = models.DateField(blank=True)
     end_date = models.DateField(blank=True)
     description = models.TextField(max_length=600, blank=True)
-    holiday_status = models.CharField(max_length=30, default="pending_approval", choices=(("approved", "Approved"),
-                                                                                        ("pending_approval", "Pending Approval"),
-                                                                                        ("not_approved", "Not Approved")))
+    status = models.CharField(max_length=30, default="pending_approval",
+                              choices=(("approved", "Approved"),
+                                       ("pending_approval", "Pending Approval"),
+                                       ("not_approved", "Not Approved")))
 
     type = models.CharField(max_length=20, default="holiday", choices=(("holiday", "Holiday"),
                                                                        ("off_sick", "Off Sick"),
