@@ -32,3 +32,4 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, view=serve, show_indexes=True)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
