@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
@@ -8,8 +9,8 @@ from control.users.models import HRUser
 from control.users.resources import UserResource
 
 
+@login_required
 def get_users(request):
-
     users = HRUser.objects.all()
 
     context = {
@@ -21,8 +22,8 @@ def get_users(request):
     return HttpResponse(template.render(context=context, request=request))
 
 
+@login_required
 def get_user_details(request, user_id):
-
     user = HRUser.objects.get(id=user_id)
 
     if request.method == 'POST':
@@ -44,7 +45,6 @@ def get_user_details(request, user_id):
 
 
 def users_import(request):
-
     context = {}
 
     if request.method == 'POST':
@@ -66,6 +66,3 @@ def users_import(request):
             context.update({'errors': errors})
 
     return render(request, 'control/users/import-user.html', context=context)
-
-
-
