@@ -36,7 +36,7 @@ def get_user_details(request, user_id):
 
     context = {
 
-        'user': user,
+        'hr_user': user,
         'form': form,
     }
 
