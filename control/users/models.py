@@ -35,7 +35,7 @@ class HRUser(AbstractUser):
     emergency_contact_number = models.DecimalField(decimal_places=0, max_digits=30, null=True, blank=True)
     status = models.CharField(max_length=10, blank=True, null=True, choices=(("active", "Active"),
                                                                              ("inactive", "Inactive")))
-    profile_picture = models.ImageField(null=True, upload_to='images', default='images/default.png')
+    profile_picture = models.ImageField(upload_to='images', default='images/default.png')
 
     @property
     def current_status(self):
