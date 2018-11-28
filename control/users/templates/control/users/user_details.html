@@ -42,48 +42,84 @@
 
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">User Details</h3>
+              <h3 class="box-title"></h3>
             </div>
+              <div class="box-body box-profile">
+                <img class="profile-user-img  img-circle img-responsive" src="{{ MEDIA_URL }}{{ hr_user.profile_picture }}">
+                  <br>
+                  <h3 class="profile-username text-center">{{ hr_user.get_full_name }}</h3>
+                  <h5 class="text-muted text-center">{{ hr_user.job_title }}</h5>
+                  <h5 class="text-muted text-center">{{ hr_user.department }}, {{ hr_user.location }}</h5>
+
+              </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>First Name </th>
-                  <td>{{ hr_user.first_name }}</td>
-                </tr>
-                <tr>
-                  <th>Last Name </th>
-                  <td>{{ hr_user.last_name }}</td>
-                </tr>
-                <tr>
-                  <th>Location </th>
-                  <td>{{ hr_user.location }}</td>
+                    <th>Info</th>
                 </tr>
                 <tr>
                   <th>Reports To </th>
-                  <td>{{ hr_user.manager }}</td>
+                    <td>
+                        {% if hr_user.manager %}
+                        <img class="img-tables" src="{{ MEDIA_URL }}{{hr_user.manager.profile_picture }}"><a href="{% url 'get_user_details' hr_user.manager.id %}">&nbsp;&nbsp;&nbsp;{{ hr_user.manager.get_full_name }}</a></td>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
                 </tr>
                 <tr>
-                  <th>Department </th>
+                  <th>Email</th>
+                  <td>{{ hr_user.email }}</td>
+                </tr>
+                <tr>
+                  <th>Start Date</th>
+                  <td>{{ hr_user.start_date }}</td>
+                </tr>
+                <tr>
+                  <th>Length of service</th>
+                  <td>{{ hr_user.get_service_length }}</td>
+                </tr>
+                <tr>
+                  <th>Department</th>
                   <td>{{ hr_user.department }}</td>
+                </tr>
+                <tr>
+                  <th>Job Title</th>
+                  <td>{{ hr_user.job_title }}</td>
                 </tr>
                 <tr>
                   <th>User Status </th>
                   <td>{{ hr_user.current_status }}</td>
                 </tr>
+                <tr>
+                  <th>Work Phone</th>
+                <td>
+                    {% if hr_user.work_phone %}
+                  {{hr_user.work_phone}}
+                    {% else %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-
+                    {% endif %}
+                </td>
+                </tr>
+                <tr>
+                  <th style="vertical-align: top">About</th>
+                    <td><textarea disabled rows="8" cols="170" >{{ hr_user.bio }}</textarea></td>
+                </tr>
                 </thead>
                 <tbody>
                 </tfoot>
               </table>
-            </div>
             <!-- /.box-body -->
           </div>
           <!-- /.box -->
         </div>
         <!-- /.col -->
       </div>
+
       <!-- /.row -->
+
     </section>
     <!-- /.content -->
   </div>

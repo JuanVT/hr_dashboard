@@ -1,4 +1,7 @@
 import datetime
+from calendar import monthrange
+from datetime import timedelta
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
@@ -10,7 +13,7 @@ class HRUser(AbstractUser):
     birth_date = models.DateField(null=True, blank=True)
     remaining_holiday = models.DecimalField(default=25.0, decimal_places=1, max_digits=3)
     job_title = models.CharField(max_length=30, blank=True)
-    start_date = models.DateField(null=True, blank=True)
+    start_date = models.DateField(blank=False, null=False)
     manager = models.ForeignKey('HRUser', null=True, blank=True)
     department = models.ForeignKey('Department', null=True, blank=True)
     nationality = models.CharField(max_length=30, blank=True)
@@ -36,6 +39,26 @@ class HRUser(AbstractUser):
     status = models.CharField(max_length=10, blank=True, null=True, choices=(("active", "Active"),
                                                                              ("inactive", "Inactive")))
     profile_picture = models.ImageField(upload_to='images', default='images/default.png')
+
+    def get_service_length(self):
+
+        today = datetime.date.today()
+        start_date = self.start_date
+        service_length = 0
+
+        while True:
+            mdays = monthrange(start_date.year, start_date.month)[1]
+            start_date += timedelta(days=mdays)
+            if start_date <= today:
+                service_length += 1
+            else:
+                break
+
+        if service_length == 0:
+
+            return '{}{}'.format((today - self.start_date).days, ' days')
+
+        return '{}{}'.format(service_length, ' months')
 
     @property
     def current_status(self):
