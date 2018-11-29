@@ -65,7 +65,11 @@
                                     <td>{{ user.job_title }}</td>
                                     <td>{{ user.start_date }}</td>
                                     <td> {{ user.department }}</td>
-                                    <td>{{ user.report_to }}</td>
+                                    {% if user.manager %}
+                                        <td><a href="{% url 'get_user_details' user.manager.id %}">{{ user.manager }}</a></td>
+                                        {% else %}
+                                        <td>&nbsp;&nbsp;&nbsp;-</td>
+                                    {% endif %}
                                 {% endfor %}
                                 </tr>
                                 </tfoot>
