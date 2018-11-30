@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'control',
     'control.users',
     'import_export',
+    'control.purchase_order'
 
 ]
 
