@@ -3,24 +3,26 @@ from django.db import models
 
 class Supplier(models.Model):
 
-    supplier_name = models.CharField(null=False, blank=False, max_length=100)
+    supplier_name = models.CharField(max_length=100)
     supplier_ref = models.CharField(null=True, blank=True, max_length=100)
     contact = models.CharField(null=True, blank=True, max_length=100)
     address = models.CharField(null=True, blank=True, max_length=100)
-    phone = models.IntegerField(null=True, blank=True)
-    fax = models.IntegerField(null=True, blank=True)
+    phone = models.CharField(null=True, blank=True, max_length=15)
+    fax = models.CharField(null=True, blank=True, max_length=30)
     supplier_email = models.EmailField(null=True, blank=True)
+
+    def __unicode__(self):
+        return self.supplier_name
 
 
 class PurchaseOrder(models.Model):
 
-    quantity = models.IntegerField(blank=True, null=True)
-    description = models.TextField(blank=True, null=True, max_length=100)
-    unit_cost = models.DecimalField(blank=True, null=True, decimal_places=2, max_digits=20)
-    total = models.DecimalField(blank=True, null=True, decimal_places=2, max_digits=20)
-    vat = models.DecimalField(blank=True, null=True, decimal_places=2, max_digits=20)
-    comments = models.TextField(blank=True, null=True, max_length=200)
-    purchase_date = models.DateField(blank=False, null=False)
+    quantity = models.IntegerField()
+    description = models.TextField(max_length=100)
+    unit_cost = models.DecimalField(decimal_places=2, max_digits=20)
+    vat = models.DecimalField(decimal_places=2, max_digits=20, default=0.0)
+    comments = models.TextField(max_length=200)
+    created = models.DateField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=(('created', 'Created'),
                                                       ('approved', 'Approved')))
     supplier = models.ForeignKey(Supplier)
@@ -28,3 +30,14 @@ class PurchaseOrder(models.Model):
     currency = models.CharField(max_length=10, choices=(('pounds', 'Pounds'),
                                                         ('dollars', 'Dollars'),
                                                         ('euros', 'Euros')))
+
+    def vat_total(self):
+        return self.quantity * self.unit_cost * self.vat
+
+    def total_cost(self):
+        return self.unit_cost * self.quantity
+
+    def total_cost_with_vat(self):
+        return self.vat_total() + self.total_cost()
+
+
