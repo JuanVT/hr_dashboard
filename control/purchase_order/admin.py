@@ -12,7 +12,7 @@ class SupplierAdmin(admin.ModelAdmin):
 @admin.register(PurchaseOrder)
 class PurchaseOrderAdmin(admin.ModelAdmin):
 
-    list_display = ['id', 'quantity', 'unit_cost', 'vat', 'created', 'status', 'supplier',
+    list_display = ['id','vat', 'created', 'status', 'supplier',
                     'purchase_order_number', 'currency']
-    list_editable = ['quantity', 'unit_cost', 'vat', 'status', 'supplier',
+    list_editable = ['vat', 'status', 'supplier',
                      'purchase_order_number', 'currency']

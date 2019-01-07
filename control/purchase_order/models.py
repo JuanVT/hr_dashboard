@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Supplier(models.Model):
 
     supplier_name = models.CharField(max_length=100)
@@ -15,11 +14,16 @@ class Supplier(models.Model):
         return self.supplier_name
 
 
-class PurchaseOrder(models.Model):
+class Item(models.Model):
 
     quantity = models.IntegerField()
     description = models.TextField(max_length=100)
     unit_cost = models.DecimalField(decimal_places=2, max_digits=20)
+
+
+class PurchaseOrder(models.Model):
+
+    item = models.ForeignKey(Item)
     vat = models.DecimalField(decimal_places=2, max_digits=20, default=0.0)
     comments = models.TextField(max_length=200)
     created = models.DateField(auto_now_add=True)
@@ -31,13 +35,13 @@ class PurchaseOrder(models.Model):
                                                         ('dollars', 'Dollars'),
                                                         ('euros', 'Euros')))
 
-    def vat_total(self):
-        return self.quantity * self.unit_cost * self.vat
-
-    def total_cost(self):
-        return self.unit_cost * self.quantity
-
-    def total_cost_with_vat(self):
-        return self.vat_total() + self.total_cost()
+    # def vat_total(self):
+    #     return self.quantity * self.unit_cost * self.vat
+    #
+    # def total_cost(self):
+    #     return self.unit_cost * self.quantity
+    #
+    # def total_cost_with_vat(self):
+    #     return self.vat_total() + self.total_cost()
 
 
