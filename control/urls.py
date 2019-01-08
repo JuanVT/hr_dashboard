@@ -28,6 +28,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'control/', include('control.users.urls')),
+    url(r'control/', include('control.purchase_order.urls')),
 ]
 
 if settings.DEBUG:
