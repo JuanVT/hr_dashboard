@@ -29,6 +29,7 @@ urlpatterns = [
 
     url(r'control/', include('control.users.urls')),
     url(r'control/', include('control.purchase_order.urls')),
+    url(r'control/', include('control.time_off.urls')),
 ]
 
 if settings.DEBUG:

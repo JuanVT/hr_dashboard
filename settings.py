@@ -42,8 +42,10 @@ INSTALLED_APPS = [
     'control',
     'control.users',
     'control.purchase_order',
-
+    'control.time_off',
+    
     'import_export',
+
 ]
 
 MIDDLEWARE = [
